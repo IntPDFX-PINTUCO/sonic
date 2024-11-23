@@ -101,7 +101,7 @@ function MarioAnimation(){
   mario.addAnimation("run",'imgs/sonic/sonic24.png', "imgs/sonic/sonic25.png","imgs/sonic/sonic26.png","imgs/sonic/sonic27.png");
   mario.addAnimation("run2",'imgs/sonic/sonic28.png', "imgs/sonic/sonic29.png","imgs/sonic/sonic30.png","imgs/sonic/sonic31.png");
   mario.addAnimation("move",'imgs/sonic/sonic18.png','imgs/sonic/sonic19.png',"imgs/sonic/sonic20.png","imgs/sonic/sonic21.png","imgs/sonic/sonic22.png","imgs/sonic/sonic23.png");
-  mario.addAnimation("crouch",'imgs/mario/mario18.png');
+  mario.addAnimation("crouch",'imgs/sonic/sonic03.png');
   mario.addAnimation("jump","imgs/sonic/sonic02.png",'imgs/sonic/sonic03.png',"imgs/sonic/sonic04.png",'imgs/sonic/sonic05.png',"imgs/sonic/sonic06.png",'imgs/sonic/sonic07.png',"imgs/sonic/sonic08.png",'imgs/sonic/sonic09.png','imgs/sonic/sonic10.png',"imgs/sonic/sonic11.png",'imgs/sonic/sonic12.png',"imgs/sonic/sonic13.png",'imgs/sonic/sonic14.png',"imgs/sonic/sonic15.png",'imgs/sonic/sonic16.png');
   mario.addAnimation("dead",'imgs/sonic/sonicmuerte.png');
 };
