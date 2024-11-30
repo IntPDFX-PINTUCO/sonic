@@ -303,7 +303,7 @@ function manualControl(character){
 
     if(keyDown(control.right)){
       character.velocity.x+=gameConfig.moveSpeed;
-      if(character.getAnimationLabel()!="run"||character.getAnimationLabel()!="run2"){
+      if(!character.running){
         character.changeAnimation('move');
       }
       character.mirrorX(1);
