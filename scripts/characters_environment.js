@@ -146,7 +146,7 @@ function instializeInSetup(character){
 	initializeCharacterStatus(character)
 
   bricks.displace(bricks);
-	platforms.displace(platforms);
+	//platforms.displace(platforms);
 	coins.displace(coins);
 	coins.displace(platforms);
 	coins.collide(pipes);
@@ -303,7 +303,9 @@ function manualControl(character){
 
     if(keyDown(control.right)){
       character.velocity.x+=gameConfig.moveSpeed;
-      character.changeAnimation('move');
+      if(character.getAnimationLabel()!="run"||character.getAnimationLabel()!="run2"){
+        character.changeAnimation('move');
+      }
       character.mirrorX(1);
       if(character.position.x>670){
         gameConfig.velocidadfondo = 1
@@ -311,13 +313,29 @@ function manualControl(character){
       else{
         gameConfig.velocidadfondo = 0
       }
+      if(!character.running){
+        setTimeout(() => {
+          if(character.getAnimationLabel()=="move"){
+            character.changeAnimation("run")
+            character.running=true
+          }
+        }, 3000);
+        setTimeout(() => {
+          if(character.getAnimationLabel()=="run"){
+            character.changeAnimation("run2")
+            character.running=true
+          }
+        }, 10000);
+      }
     }
     if(!character.standOnObj){
       character.changeAnimation('jump');
+      character.running=false
     }
     if(!keyDown(control.left)&&!keyDown(control.right)&&character.standOnObj){ 
       character.changeAnimation('stand');
       gameConfig.velocidadfondo = 0
+      character.running=false
     }
     else{
 
