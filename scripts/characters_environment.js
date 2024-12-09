@@ -315,14 +315,14 @@ function manualControl(character){
       }
       if(!character.running){
         setTimeout(() => {
-          if(character.getAnimationLabel()=="move"){
-            character.changeAnimation("run")
+          if(character.getAnimationLabel()=='move'){
+            character.changeAnimation('run')
             character.running=true
           }
         }, 3000);
         setTimeout(() => {
-          if(character.getAnimationLabel()=="run"){
-            character.changeAnimation("run2")
+          if(character.getAnimationLabel()=='run'){
+            character.changeAnimation('run2')
             character.running=true
           }
         }, 10000);
@@ -542,6 +542,7 @@ function moveEnvironment(character){
   
   if(gameConfig.status==='play'){
     environmentScrolling(platforms,environmentScrollingSpeed);
+    paisajesScrolling(paisajes,environmentScrollingSpeed);
     environmentScrolling(bricks,environmentScrollingSpeed);
     environmentScrolling(clouds,environmentScrollingSpeed*0.5);
     environmentScrolling(mountains,environmentScrollingSpeed*0.3); 
@@ -582,6 +583,18 @@ function environmentScrolling(group,environmentScrollingSpeed){
         element.position.x=random(0,gameConfig.screenX)+gameConfig.screenX;
         element.position.y=random(gameConfig.screenY*0.2,gameConfig.screenY*0.8);
       }
+
+    }
+
+  })
+}
+function paisajesScrolling(group,environmentScrollingSpeed){
+  group.forEach(function(element){
+    if(element.position.x>-1792){
+      element.position.x-=environmentScrollingSpeed;
+    }else{
+      element.position.x=3584;
+      
 
     }
 

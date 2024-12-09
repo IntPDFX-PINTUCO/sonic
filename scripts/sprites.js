@@ -8,9 +8,11 @@ var pipeImages = [ 'imgs/scene/tube.png' ];
 var platformImages = [ 'imgs/scene/piso.png' ];
 var enemyMushroomImage = [ 'imgs/enemy/mariquita-sonic0.png','imgs/enemy/mariquita-sonic1.png'];
 var enemyAvispaImage = ["imgs/enemy/avispa-sonic0.png","imgs/enemy/avispa-sonic1.png"];
+var fondoCompleto = ["imgs/scene/fondo-completo.png"]
 
 var spriteNumber={
   mountain: 6,
+  paisaje: 3,
   cloud: 10,
   brick: 5,
   pipe: 5,
@@ -25,6 +27,7 @@ var spriteNumber={
 // set every sprites configs
 function setSprites(){
   setSpriteGroups();
+  loadStaticObjects( paisajes, fondoCompleto, spriteNumber.paisaje ,0, gameConfig.screenX, 156, gameConfig.screenY);
   loadStaticObjects( mountains, mountainImages, spriteNumber.mountain ,1.5, gameConfig.screenX, gameConfig.screenY-35, gameConfig.screenY-35);
   loadStaticObjects( clouds, cloudImages, spriteNumber.cloud, 0, gameConfig.screenX, 20, gameConfig.screenY*0.5 );
   loadStaticObjects( bricks, brickImages, spriteNumber.brick, gameConfig.screenX*0.1, gameConfig.screenX*0.9, gameConfig.screenY*0.1, gameConfig.screenY*0.7 );
@@ -40,6 +43,7 @@ function setSprites(){
 function setSpriteGroups(){
   //groups 
   bricks = new Group();
+  paisajes = new Group();
   enemyMushrooms = new Group();
   enemyAvispas = new Group();
   clouds = new Group();
@@ -53,12 +57,15 @@ function setSpriteGroups(){
 //load static object function
 function loadStaticObjects( group, imageArray, spriteNumber, randomPosStartX, randomPosEndX, randomPosStartY, randomPosEndY) {
   for(var i = 0; i < spriteNumber; i++) {
-    
     // load random image in image array
     var randomNumber=floor((random()*10)%imageArray.length);
     var img = loadImage(imageArray[randomNumber]);
-
-    group[i] = createSprite(random(randomPosStartX, randomPosEndX), random(randomPosStartY, randomPosEndY));
+    if(group==paisajes){
+      group[i] = createSprite(i*1792, 156);
+    }
+    else{
+      group[i] = createSprite(random(randomPosStartX, randomPosEndX), random(randomPosStartY, randomPosEndY));
+    }
     group[i].addImage(img);
     // group[i].scale=scales;
   }
