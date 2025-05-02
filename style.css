@@ -3,4 +3,7 @@ body{
     padding: 0;
     margin: 0;  
     font-family:'Emulogic', sans-serif!important;
+    background-image: url(imgs/scene/consola_sega.png);
+    width: 100%;
+    height: 100dvh;
 }
