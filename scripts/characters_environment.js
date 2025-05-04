@@ -34,12 +34,12 @@ var gameConfig={
   jump:-15,
 
   // character starting point
-  startingPointX: 500,
+  startingPointX: 25,
   startingPointY: 0,
 
   // default canvas size
-  screenX:screen.width,
-  screenY:336,
+  screenX:443,
+  screenY:354,
 
   // scores
   timeScores: 0,
@@ -67,9 +67,9 @@ function game(){
     rect(0,0,gameConfig.screenX,gameConfig.screenY);
 
     fill(255, 255, 255);
-    textSize(40);
+    textSize(25);
     textAlign(CENTER);
-    text("Press Any Arrow Keys to Start and Play ", gameConfig.screenX/2, gameConfig.screenY/2);
+    text("Press Any Arrow Keys to Start", gameConfig.screenX/2, gameConfig.screenY/2);
     textSize(40);
 
     stroke(255);
@@ -307,7 +307,7 @@ function manualControl(character){
         character.changeAnimation('move');
       }
       character.mirrorX(1);
-      if(character.position.x>670){
+      if(character.position.x>gameConfig.screenX*0.45){
         gameConfig.velocidadfondo = 1
       }
       else{

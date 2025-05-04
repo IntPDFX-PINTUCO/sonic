@@ -11,12 +11,12 @@ var enemyAvispaImage = ["imgs/enemy/avispa-sonic0.png","imgs/enemy/avispa-sonic1
 var fondoCompleto = ["imgs/scene/fondo-completo.png"]
 
 var spriteNumber={
-  mountain: 6,
+  mountain: 2,
   paisaje: 3,
-  cloud: 10,
-  brick: 5,
-  pipe: 5,
-  coin: 10,
+  cloud: 0,
+  brick: 3,
+  pipe: 1,
+  coin: 6,
   enemyMushroom: 1,
   enemyAvispa: 1,
 
@@ -58,15 +58,18 @@ function setSpriteGroups(){
 function loadStaticObjects( group, imageArray, spriteNumber, randomPosStartX, randomPosEndX, randomPosStartY, randomPosEndY) {
   for(var i = 0; i < spriteNumber; i++) {
     // load random image in image array
-    var randomNumber=floor((random()*10)%imageArray.length);
-    var img = loadImage(imageArray[randomNumber]);
     if(group==paisajes){
-      group[i] = createSprite(i*1792, 156);
+      var img=loadImage(imageArray[0])
+      group[i] = createSprite(i*1792*1.6, 156);
+      group[i].addImage(img)
+      group[i].scale= 1.61
     }
     else{
+      var randomNumber=floor((random()*10)%imageArray.length);
+      var img = loadImage(imageArray[randomNumber]);
       group[i] = createSprite(random(randomPosStartX, randomPosEndX), random(randomPosStartY, randomPosEndY));
+      group[i].addImage(img);
     }
-    group[i].addImage(img);
     // group[i].scale=scales;
   }
 };
@@ -88,9 +91,10 @@ function loadAnimatedObjects( group, imageArray, animationName, spriteNumber, sp
 // load platforms
 function loadPlatforms() {
   img=loadImage('imgs/scene/piso.png');
-  for(i=0;i<ceil(gameConfig.screenX/96);i++){
+  for(i=0;i<ceil(gameConfig.screenX/96)+3;i++){
       platforms[i]=createSprite(i*96,gameConfig.screenY-10);
     platforms[i].addImage(img);
+    platforms[i].scale=1.1
   };
 };
 
