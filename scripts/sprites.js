@@ -3,10 +3,12 @@
 var mountainImages = [ 'imgs/scene/mountains01.png', 'imgs/scene/mountains02.png', 'imgs/scene/mountains03.png', 'imgs/scene/mountains04.png'];
 var cloudImages = [ 'imgs/scene/cloud01.png', 'imgs/scene/cloud02.png'];
 var brickImages = [ 'imgs/blocks/blocks001.png', 'imgs/blocks/blocks002.png', 'imgs/blocks/blocks003.png'];
-var coinsImags = [ 'imgs/blocks/coin01.png', 'imgs/blocks/coin05.png' ];
+var coinsImags = [ 'imgs/blocks/ring0.png', 'imgs/blocks/ring1.png', 'imgs/blocks/ring2.png', 'imgs/blocks/ring3.png', 'imgs/blocks/ring4.png', 'imgs/blocks/ring5.png','imgs/blocks/ring6.png', 'imgs/blocks/ring7.png' ];
 var pipeImages = [ 'imgs/scene/tube.png' ];
 var platformImages = [ 'imgs/scene/piso.png' ];
 var enemyMushroomImage = [ 'imgs/enemy/mariquita-sonic0.png','imgs/enemy/mariquita-sonic1.png'];
+var enemyCaracolImage = ["imgs/enemy/caracol sonic0.png", "imgs/enemy/caracol sonic1.png","imgs/enemy/caracol sonic2.png"];
+var enemyGusanoImage = ["imgs/enemy/gusano00.png","imgs/enemy/gusano01.png","imgs/enemy/gusano02.png","imgs/enemy/gusano03.png","imgs/enemy/gusano04.png","imgs/enemy/gusano05.png","imgs/enemy/gusano06.png","imgs/enemy/gusano07.png","imgs/enemy/gusano08.png","imgs/enemy/gusano09.png","imgs/enemy/gusano10.png","imgs/enemy/gusano11.png"];
 var enemyAvispaImage = ["imgs/enemy/avispa-sonic0.png","imgs/enemy/avispa-sonic1.png"];
 var fondoCompleto = ["imgs/scene/fondo-completo.png"]
 
@@ -19,6 +21,8 @@ var spriteNumber={
   coin: 6,
   enemyMushroom: 1,
   enemyAvispa: 1,
+  enemyCaracol: 1,
+  enemyGusano: 1,
 
 }
 
@@ -32,9 +36,11 @@ function setSprites(){
   loadStaticObjects( clouds, cloudImages, spriteNumber.cloud, 0, gameConfig.screenX, 20, gameConfig.screenY*0.5 );
   loadStaticObjects( bricks, brickImages, spriteNumber.brick, gameConfig.screenX*0.1, gameConfig.screenX*0.9, gameConfig.screenY*0.1, gameConfig.screenY*0.7 );
   loadStaticObjects( pipes, pipeImages, spriteNumber.pipe, 50, gameConfig.screenX, gameConfig.screenY-20, gameConfig.screenY+10 );
-  loadAnimatedObjects( coins, coinsImags, 'shine', spriteNumber.coin, "get", false, 0, gameConfig.screenX, gameConfig.screenY*0.35, gameConfig.screenY*0.75 );
-  loadAnimatedObjects( enemyMushrooms, enemyMushroomImage, 'move', spriteNumber.enemyMushroom, 'live', true, gameConfig.screenX*0.5, gameConfig.screenX, gameConfig.screenY*0.35, gameConfig.screenY*0.75, 1.0 );
-  loadAnimatedObjects(enemyAvispas, enemyAvispaImage, 'move', spriteNumber.enemyAvispa, 'live', true, gameConfig.screenX*0.5, gameConfig.screenX, gameConfig.screenY*0.10, gameConfig.screenY*0.50, 1.0 , true);
+  loadAnimatedObjects( coins, coinsImags, 'shine', spriteNumber.coin, "get", false, 0, gameConfig.screenX, gameConfig.screenY*0.35, gameConfig.screenY*0.75, 0.06);
+  loadAnimatedObjects( enemyMushrooms, enemyMushroomImage, 'move', spriteNumber.enemyMushroom, 'live', true, gameConfig.screenX*0.5, gameConfig.screenX, gameConfig.screenY*0.35, gameConfig.screenY*0.75, 1.0, 17);
+  loadAnimatedObjects(enemyAvispas, enemyAvispaImage, 'move', spriteNumber.enemyAvispa, 'live', true, gameConfig.screenX*0.5, gameConfig.screenX, gameConfig.screenY*0.10, gameConfig.screenY*0.50, 1.0 , 2,true);
+  loadAnimatedObjects( enemyGusano, enemyGusanoImage, 'move', spriteNumber.enemyGusano, 'live', true, gameConfig.screenX*0.9, gameConfig.screenX*1.5, gameConfig.screenY*0.8, gameConfig.screenY*0.8, 1.0, 5);
+  loadAnimatedObjects( enemyCaracoles, enemyCaracolImage, 'move', spriteNumber.enemyCaracol, 'live', true, gameConfig.screenX*0.8, gameConfig.screenX*1.2, gameConfig.screenY*0.35, gameConfig.screenY*0.75, 1.0, 6 );
   loadPlatforms();
 }
 
@@ -46,6 +52,8 @@ function setSpriteGroups(){
   paisajes = new Group();
   enemyMushrooms = new Group();
   enemyAvispas = new Group();
+  enemyGusano = new Group();
+  enemyCaracoles = new Group();
   clouds = new Group();
   mountains = new Group();
   pipes = new Group();
@@ -75,13 +83,14 @@ function loadStaticObjects( group, imageArray, spriteNumber, randomPosStartX, ra
 };
 
 //load animate object function
-function loadAnimatedObjects( group, imageArray, animationName, spriteNumber, spriteStatusName, spriteStatusValue,  randomPosStartX, randomPosEndX, randomPosStartY, randomPosEndY, tamaño=1.5, volar=0) {
+function loadAnimatedObjects( group, imageArray, animationName, spriteNumber, spriteStatusName, spriteStatusValue,  randomPosStartX, randomPosEndX, randomPosStartY, randomPosEndY, tamaño=1.5,  delay=4,volar=false) {
   for(var i = 0; i < spriteNumber; i++) {
     
     group[i] = createSprite(random(randomPosStartX, randomPosEndX), random(randomPosStartY, randomPosEndY));
-    group[i].addAnimation(animationName, imageArray[0], imageArray[1]);
+    group[i].addAnimation(animationName, ...imageArray);
     group[i].scale = tamaño;
     group[i].fly = volar
+    group[i].animation.frameDelay=delay
     group[i][spriteStatusName] = spriteStatusValue;
     
   };

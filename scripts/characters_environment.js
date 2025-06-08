@@ -4,7 +4,7 @@
 =================================*/
 
 /* main character variabes */
-var mario, bricks,clouds,mountains,enemyMushrooms,enemyAvispas,pipes,platforms,coins;
+var mario, bricks,clouds,mountains,enemyMushrooms,enemyGusano,enemyAvispas,enemyCaracoles,pipes,platforms,coins;
 
 /* Control variabes */
 var control={
@@ -83,6 +83,8 @@ function game(){
     positionOfCharacter(mario);
     enemys(enemyMushrooms);
     enemys(enemyAvispas);
+    enemys(enemyGusano);
+    enemys(enemyCaracoles);
     checkStatus(mario);
     scores(mario);
     manualControl(mario);
@@ -186,8 +188,15 @@ function instializeInDraw(){
   // make objects not overlap each other.
   pipes.displace(pipes);
   enemyMushrooms.displace(enemyMushrooms);
+  enemyMushrooms.displace(enemyCaracoles);
+  enemyMushrooms.displace(enemyGusano);
+  enemyCaracoles.displace(enemyGusano);
   enemyAvispas.displace(enemyAvispas);
+  enemyGusano.displace(enemyGusano);
+  enemyCaracoles.displace(enemyCaracoles);
+  enemyGusano.collide(pipes);
   enemyMushrooms.collide(pipes);
+  enemyCaracoles.collide(pipes);
   clouds.displace(clouds);
 
   // make character not overlap other objects
@@ -195,6 +204,8 @@ function instializeInDraw(){
     bricks.displace(mario);
     pipes.displace(mario);
     enemyMushrooms.displace(mario);
+    enemyGusano.displace(mario);
+    enemyCaracoles.displace(mario);
     enemyAvispas.displace(mario);
     platforms.displace(mario);
   }
@@ -266,14 +277,23 @@ function positionOfCharacter(character){
   // EnemyMushrooms interaction event
   enemyMushrooms.forEach(function(element){
     StepOnEnemy(character,element);
-    if((element.touching.left||element.touching.right)&&character.live&&character.killing===0) die(mario);
+    if((element.touching.left||element.touching.right||element.touching.top||element.touching.bottom)&&character.live&&character.killing===0) die(mario);
     
+  })
+  enemyGusano.forEach(function(element){
+    StepOnEnemy(character,element);
+    if((element.touching.left||element.touching.right||element.touching.top||element.touching.bottom)&&character.live&&character.killing===0) die(mario);
+    
+  })
+  enemyCaracoles.forEach(function(element){
+    StepOnEnemy(character,element);
+    if((element.touching.left||element.touching.right||element.touching.top||element.touching.bottom)&&character.live&&character.killing===0) die(mario);
   })
   enemyAvispas.forEach(function(element){
     StepOnEnemy(character,element);
     if((element.touching.left||element.touching.right||element.touching.bottom||element.touching.top)&&character.live&&character.killing===0){
     element.position.y=random(gameConfig.screenY*0.10, gameConfig.screenY*0.50);
-    element.position.x=random(50,gameConfig.screenX)+gameConfig.screenX;
+    element.position.x=random(50,gameConfig.screenX)+gameConfig.screenX; 
   }
     
   })
@@ -550,6 +570,8 @@ function moveEnvironment(character){
     environmentScrolling(coins,environmentScrollingSpeed); 
     environmentScrolling(enemyMushrooms,environmentScrollingSpeed); 
     environmentScrolling(enemyAvispas,environmentScrollingSpeed); 
+    environmentScrolling(enemyGusano,environmentScrollingSpeed); 
+    environmentScrolling(enemyCaracoles,environmentScrollingSpeed); 
     character.position.x-=environmentScrollingSpeed;
   }
 }
